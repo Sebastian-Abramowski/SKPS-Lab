@@ -2,7 +2,7 @@
 
 ### Komendy, które się mogą przydać
 ```sh
-wget https://buildroot.org/downloads/buildroot-2023.11.1.tar.xz
+wget https://buildroot.org/downloads/buildroot-2021.08.tar.bz2
 sudo apt-get install build-essential - jakby nie było do kompilacji
 sudo apt-get install libncurses5-dev - przed odpaleniem menuconfig
 ```
