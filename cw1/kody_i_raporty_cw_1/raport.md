@@ -6,6 +6,8 @@
 
 ---
 
+Raport wygenerowany automatycznie z pliku raport.md
+
 ## Przygotowanie stanowiska
 
 Zrobiliśmy według instrukcji
@@ -65,7 +67,7 @@ make menuconfig
 Ustawiliśmy Toolchain na External zgodnie z instrukcją oraz
 w ustawieniach 'Filesystem images' dokonaliśmy następujących zmian
 
-...
+<img src="obrazy/menuconfig_z_initramfs.png" width="500">
 
 Następnie zbudowaliśmy obraz poleceniem
 
