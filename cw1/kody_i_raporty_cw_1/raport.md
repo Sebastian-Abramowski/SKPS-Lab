@@ -110,7 +110,7 @@ make linux-dirclean
 make menuconfig
 ```
 
-Zostawiliśmy Toolchain ustawiony na External, wyłączyliśmy initramfs,włączyliśmy wsparcie dla ext2/3/4 (ext2 wybraliśmy) oraz pozostawiliśmy ustawienie kompresji na gzip
+Zostawiliśmy Toolchain ustawiony na External, wyłączyliśmy initramfs,włączyliśmy wsparcie dla ext2/3/4 (ext2 wybraliśmy) oraz zaznaczyliśmy ustawienie kompresji na gzip
 
 Dodatkowo dwukrotnie zwiększyliśmy wielkość systemu plików
 
