@@ -6,8 +6,6 @@
 
 ---
 
-Raport wygenerowany automatycznie z pliku raport.md
-
 ## Przygotowanie stanowiska
 
 Zrobiliśmy według instrukcji
