@@ -156,4 +156,4 @@ Rozmiar obrazu systemu ze zwykłym systemem plików
 
 <img src="obrazy/rozmiar_bez_ramdysku.png" width="500">
 
-Czyli rozmiar obrazu systemu z initramfs był ponad dwa razy większy. Wynika to z tego, że startowy system plików jest wrzucony do środka obrazu systemu z initramfs. W systemie ze zwykłym systemie plików, system plików zajmuje miejsce na karcie SD.
+Czyli rozmiar obrazu systemu z initramfs był ponad dwa razy większy. Wynika to z tego, że startowy system plików jest wrzucony do środka obrazu systemu z initramfs. W systemie ze zwykłym systemem plików, system plików zajmuje miejsce na karcie SD.
