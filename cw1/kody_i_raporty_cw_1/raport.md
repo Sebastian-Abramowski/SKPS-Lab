@@ -35,7 +35,7 @@ Na RPi
 
 Na host
 
-<img src="obrazy/ip_host.png" width="300">
+<img src="obrazy/ip_host.png" width="400">
 
 ## Kopiowanie plików na RPi
 
@@ -120,9 +120,11 @@ Wykonaliśmy kompilację systemu przez
 make clean all
 ```
 
-Ponownie przerzuciliśmy wymagane pliki do udostępnionego folder (tym razem także plik z systemem plików) i sprawdziliśmy jego zawartość
+Ponownie przerzuciliśmy wymagane pliki do udostępnionego folder (tym razem także plik z systemem plików)
 
 <img src="obrazy/kopiowanie_plikow_potrzebnych_bez_ramdysk.png" width="400">
+
+Sprawdziliśmy zawartość udostępnionego folderu
 
 <img src="obrazy/serwer_wszystko_ok.png" width="400">
 
@@ -132,9 +134,7 @@ Wrzuciliśmy plik 'rootfs.ext2' na partycję drugą karty SD
 
 Zamontowaliśmy pierwszą partycję karty SD jak poprzednio i dodaliśmy do niej wymagane pliki (pamiętając o tym żeby zmienić nazwę obrazu z Image na kernel8.img)
 
-<img src="obrazy/mount_zwykly1.png" width="400">
-
-<img src="obrazy/mount_zwykly_ciag_dalszy.png" width="400">
+<img src="obrazy/mount_zwykly_big.png" width="400">
 
 Przetestowaliśmy działanie systemu z normalnym systemem plików poprzez zapiasanie w nim pliku testowego
 
