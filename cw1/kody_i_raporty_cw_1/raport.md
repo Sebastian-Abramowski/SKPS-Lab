@@ -18,7 +18,6 @@ Podłączyliśmy się do terminala UART do RPi przez program tio
 
 <img src="obrazy/uart_podlaczenie.png" width="400">
 
-</br>
 Potem uruchomiliśmy DHCP, aby RPi dostało adres IP
 
 <img src="obrazy/dhcp_uruchomienie.png" width="400">
@@ -125,7 +124,6 @@ Ponownie przerzuciliśmy wymagane pliki do udostępnionego folder (tym razem tak
 
 <img src="obrazy/kopiowanie_plikow_potrzebnych_bez_ramdysk.png" width="400">
 
-</br>
 <img src="obrazy/serwer_wszystko_ok.png" width="400">
 
 Wrzuciliśmy plik 'rootfs.ext2' na partycję drugą karty SD
@@ -135,6 +133,7 @@ Wrzuciliśmy plik 'rootfs.ext2' na partycję drugą karty SD
 Zamontowaliśmy pierwszą partycję karty SD jak poprzednio i dodaliśmy do niej wymagane pliki (pamiętając o tym żeby zmienić nazwę obrazu z Image na kernel8.img)
 
 <img src="obrazy/mount_zwykly1.png" width="400">
+
 <img src="obrazy/mount_zwykly_ciag_dalszy.png" width="400">
 
 Przetestowaliśmy działanie systemu z normalnym systemem plików poprzez zapiasanie w nim pliku testowego
