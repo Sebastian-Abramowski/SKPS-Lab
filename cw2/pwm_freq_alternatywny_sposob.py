@@ -41,8 +41,8 @@ while current_t < duration:
     current_t += high_period + epsilon + low_period
 
 plt.plot(times, values)
-plt.xlabel("time [s]")
-plt.ylabel("PWM")
+plt.xlabel("Czas [s]")
+plt.ylabel("Sygnał PWM")
 plt.title("Sygnał liniowy 30Hz-1000Hz-30Hz")
 plt.style.use("fivethirtyeight")
 plt.grid(True)
