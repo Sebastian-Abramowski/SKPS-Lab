@@ -1,7 +1,5 @@
 import matplotlib.pyplot as plt
 
-# TODO: niedokończone
-
 duty_cycle = 0.5
 dt = 0.001
 duration = 0.24
@@ -23,7 +21,8 @@ def variable_frequency(t, duration, min_freq=30, max_freq=1000):
     if t <= half_duration:
         return min_freq + (max_freq - min_freq) * (t / half_duration)
     else:
-        return max_freq - (max_freq - min_freq) * ((t - half_duration) / half_duration)
+        return max_freq - (max_freq - min_freq) * (
+            (t - half_duration) / half_duration)
 
 
 current_t = 0
@@ -44,7 +43,8 @@ while current_t < duration:
 plt.plot(times, values)
 plt.xlabel("time [s]")
 plt.ylabel("PWM")
-plt.title("PWM Signal with Variable Frequency")
+plt.title("Sygnał liniowy 30Hz-1000Hz-30Hz")
 plt.style.use("fivethirtyeight")
 plt.grid(True)
-plt.show()
+# plt.show()
+plt.savefig("zad.png")

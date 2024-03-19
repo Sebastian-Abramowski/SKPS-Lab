@@ -49,5 +49,5 @@ for i in range(ITERATIONS):
     y_axis.append(y)
 
 plt.scatter(x_axis, y_axis)
-plt.title(f"Sygnał sinusowy 10%-90%-10%")
+plt.title("Sygnał sinusowy 10%-90%-10%")
 plt.savefig("zad2_b.png")
