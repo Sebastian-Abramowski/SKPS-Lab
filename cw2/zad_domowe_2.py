@@ -10,12 +10,18 @@ def pwm_signal(min_hz, max_hz, step):
 
     signal = 1
     x_axis = [0]
-    y_axis = [0]
+    y_axis = [1]
     freq = min_hz
     start = time.time()
     while freq >= min_hz:
         if freq > max_hz:
             step = -step
+
+        time.sleep(1 / freq)
+        x_axis.append(time.time() - start)
+
+        y_axis.append(signal)
+        signal = signal ^ 1
 
         time.sleep(1 / freq)
         x_axis.append(time.time() - start)
