@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 duty_cycle = 0.5
 dt = 0.001
 duration = 0.24
-epsilon = 0.00001
+epsilon = 1e-6
 
 values = []
 times = []
@@ -47,4 +47,4 @@ plt.title("Sygnał liniowy 30Hz-1000Hz-30Hz")
 plt.style.use("fivethirtyeight")
 plt.grid(True)
 # plt.show()
-plt.savefig("zad.png")
+plt.savefig("zad2_a_alternative.png")
