@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 
 duty_cycle = 0.5
-dt = 0.001
 duration = 0.25
 epsilon = 1e-6
 
