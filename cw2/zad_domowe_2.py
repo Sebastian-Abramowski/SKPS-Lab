@@ -7,28 +7,31 @@ MULTIPLIER = math.pi / 40
 
 
 def pwm_signal(min_hz, max_hz, step):
-    start = time.time()
+
     signal = 1
-    x_axis = []
-    y_axis = []
+    x_axis = [0]
+    y_axis = [0]
     freq = min_hz
-    while freq >= min_hz - step:
+    start = time.time()
+    while freq >= min_hz:
         if freq > max_hz:
             step = -step
 
         time.sleep(1 / freq)
         x_axis.append(time.time() - start)
-        signal = signal ^ 1
+
         y_axis.append(signal)
+        signal = signal ^ 1
         freq += step
 
     return x_axis, y_axis
 
 
-signal = pwm_signal(30, 1000, 90)
+signal = pwm_signal(30, 1000, 30)
 plt.step(signal[0], signal[1])
 plt.title("Sygnał liniowy 30Hz-1000Hz-30Hz")
 plt.savefig("zad2_a.png")
+plt.show()
 
 x_axis = []
 y_axis = []
