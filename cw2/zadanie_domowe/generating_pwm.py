@@ -13,22 +13,22 @@ def calc_periods(frequency, duty_cycle):
     return high_signal_period, low_signal_period
 
 
-def variable_frequency(t, duration, min_freq=30, max_freq=1000):
+def variable_frequency(time, duration, min_freq=30, max_freq=1000):
     half_duration = duration / 2
-    if t <= half_duration:
-        return min_freq + (max_freq - min_freq) * (t / half_duration)
+    if time <= half_duration:
+        return min_freq + (max_freq - min_freq) * (time / half_duration)
     else:
         return max_freq - (max_freq - min_freq) * (
-            (t - half_duration) / half_duration)
+            (time - half_duration) / half_duration)
 
 
-def variable_duty_cycle(t, duration, min_duty=0.1, max_duty=0.9):
+def variable_duty_cycle(time, duration, min_duty=0.1, max_duty=0.9):
     half_duration = duration / 2
-    if t <= half_duration:
-        return min_duty + (max_duty - min_duty) * (t / half_duration)
+    if time <= half_duration:
+        return min_duty + (max_duty - min_duty) * (time / half_duration)
     else:
         return max_duty - (max_duty - min_duty) * (
-            (t - half_duration) / half_duration)
+            (time - half_duration) / half_duration)
 
 
 def generate_values_for_freq_plot():
