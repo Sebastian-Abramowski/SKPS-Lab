@@ -12,7 +12,7 @@ def calc_periods(frequency, duty_cycle):
     return high_signal_period, low_signal_period
 
 
-def variable_duty_cycle(time, duration, min_duty=0.1, max_duty=0.9):
+def variable_duty_cycle(time, duration, min_duty=0, max_duty=1):
     half_duration = duration / 2
     if time <= half_duration:
         return min_duty + (max_duty - min_duty) * (time / half_duration)
@@ -21,17 +21,17 @@ def variable_duty_cycle(time, duration, min_duty=0.1, max_duty=0.9):
             (time - half_duration) / half_duration)
 
 
-def generate_values_for_pwm(gpio, frequency=5):
+def generate_values_for_pwm(gpio, frequency=100):
     current_t = 0
     while current_t < duration:
         variable_duty = variable_duty_cycle(current_t, duration)
         high_period, low_period = calc_periods(frequency, variable_duty)
-        gpio.value(1)
+        gpio.value = 1
         current_t += high_period
         sleep(high_period)
-        gpio.value(0)
+        gpio.value = 0
         current_t += epsilon
-        gpio.value(0)
+        gpio.value = 0
         current_t += low_period
         sleep(low_period)
 
