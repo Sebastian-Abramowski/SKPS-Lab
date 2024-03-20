@@ -6,8 +6,6 @@
 
 ---
 
-Raport wygenerowany automatycznie na podstawie pliku raport.md
-
 ## Instalacja OpenWRT
 
 Na początku dodaliśmy serwer DNSa na wszelki wypadek do pliku /etc/resolv.conf na systemie ratunkowym
