@@ -40,7 +40,7 @@ Sprawdziliśmy czy jest dostęp do naszego systemu przez HTTP
 
 ---
 
-Następnie zainstowaliśmy potrzebne pakiety i zaczęliśmy robić zadania
+Następnie pobraliśmy potrzebne pakiety i zaczęliśmy robić zadania
 
 ## Zad. 1 (plik gpio_led_1.py)
 
@@ -136,7 +136,7 @@ while True:
 
 ## Zad. 4 (plik buzzer.py)
 
-Schemat podłączenie
+Schemat podłączenia
 
 <img src="img/buzzer_schema.png" width="750">
 
@@ -171,7 +171,7 @@ buzzer.export = False
 
 ## Zad. 5 (plik proximity_sensor.py)
 
-Schemat podłączenie
+Schemat podłączenia
 
 <img src="img/proximity_sensor.png" width="750">
 
