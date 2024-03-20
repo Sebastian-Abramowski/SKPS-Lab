@@ -1,4 +1,5 @@
-import matplotlib.pyplot as plt
+from gpio4 import SysfsGPIO
+from time import sleep
 
 duration = 10
 epsilon = 1e-6
@@ -20,30 +21,23 @@ def variable_duty_cycle(time, duration, min_duty=0.1, max_duty=0.9):
             (time - half_duration) / half_duration)
 
 
-def generate_values_for_fill_plot(frequency=5):
-    values = []
-    times = []
+def generate_values_for_pwm(gpio, frequency=5):
     current_t = 0
     while current_t < duration:
         variable_duty = variable_duty_cycle(current_t, duration)
         high_period, low_period = calc_periods(frequency, variable_duty)
-        values.append(1)
-        times.append(current_t)
-        values.append(1)
-        times.append(current_t + high_period)
-        values.append(0)
-        times.append(current_t + high_period + epsilon)
-        values.append(0)
-        times.append(current_t + high_period + epsilon + low_period)
-        current_t += high_period + epsilon + low_period
-    return times, values
+        gpio.value(1)
+        current_t += high_period
+        sleep(high_period)
+        gpio.value(0)
+        current_t += epsilon
+        gpio.value(0)
+        current_t += low_period
+        sleep(low_period)
 
 
-times, values = generate_values_for_fill_plot()
-plt.plot(times, values)
-plt.xlabel("Czas [s]")
-plt.ylabel("Sygnał PWM")
-plt.title("Sygnał wypełnienie 10%-90%-10%")
-plt.style.use("fivethirtyeight")
-plt.grid(True)
-plt.show()
+gpio = SysfsGPIO(27)
+gpio.export = True
+gpio.direction = 'out'
+generate_values_for_pwm(gpio)
+gpio.export = False
