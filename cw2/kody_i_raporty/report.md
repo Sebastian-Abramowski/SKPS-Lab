@@ -6,6 +6,8 @@
 
 ---
 
+Raport wygenerowany automatycznie na podstawie pliku raport.md
+
 ## Instalacja OpenWRT
 
 Na początku dodaliśmy serwer DNSa na wszelki wypadek do pliku /etc/resolv.conf na systemie ratunkowym
@@ -138,7 +140,7 @@ while True:
 
 Schemat podłączenie
 
-<img src="img/buzzer_schema.png" width="500">
+<img src="img/buzzer_schema.png" width="750">
 
 </br></br>
 
@@ -173,7 +175,7 @@ buzzer.export = False
 
 Schemat podłączenie
 
-<img src="img/proximity_sensor.png" width="500">
+<img src="img/proximity_sensor.png" width="750">
 
 </br></br>
 
