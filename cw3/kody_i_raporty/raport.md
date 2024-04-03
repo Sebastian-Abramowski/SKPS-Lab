@@ -61,7 +61,7 @@ Przenieślimy paczke demo1 w postaci pliku .ipk na RPi i ją zainstelowaliśmy i
 
 Pobraliśmy katalogi z programami worms i buggy i umieściliśmy je w tym samym miejscu co poprzednio demo1 i demo1mak
 
-W katalogach `buggy` i `worms` umieściilśmy pliki Makefile, zrobliśmy je wzorując się na Makefilu z `demo1`
+W katalogach `buggy` i `worms` umieściilśmy pliki Makefile, zrobiliśmy je wzorując się na Makefilu z `demo1`
 
 Aktualizacja i kompilacja paczek
 
@@ -73,7 +73,7 @@ make package/feeds/skps/worms/compile
 make package/feeds/skps/buggy/compile
 ```
 
-Instalacja pakietów po ich przeniesieniu (zrobliśmy tym samym sposobem co poprzednio)
+Instalacja pakietów po ich przeniesieniu (zrobiliśmy to tym samym sposobem co poprzednio)
 
 ```
 opkg install worms_1.0-1_aarch64_cortex-a72.ipk
@@ -126,14 +126,14 @@ Połącznie do serwera gdb z komputera hosta (analogicznie dla innych programów
 Po połączeniu z komputera hosta ustawiliśmy katalog dla gdb, w którym ma szukać kodu:
 
 ```
-np. directory /home/user/Puplit/openwrt.../demo1_owrt_pkg/buggy/src
+directory /home/user/Puplit/openwrt.../demo1_owrt_pkg/buggy/src
 ```
 
 ### Program bug1
 
 Na czym polegał bug1 - (Segmentation fault) zapis do niezaalokowanej tablicy
 
-Przedstawienie debuggowania:
+Przedstawienie debugowania:
 
 <img src="img/bug1.png" width="500">
 
@@ -149,7 +149,7 @@ Przedstawienie debuggowania:
 
 Na czym polegał bug2 - (Segmentation fault) wyjście poza zakres tablicy
 
-Przedstawienie debuggowania:
+Przedstawienie debugowania:
 
 <img src="img/debug bug2.png" width="500">
 
@@ -161,6 +161,6 @@ Przedstawienie debuggowania:
 
 Na czym polegał bug3 - wyjście poza zakres tablicy, brak Segmentation faulta w tym przypadku (nie trafiliśmy na obszar, do którego nie mamy dostępu), od razu po przepełnieniu s1, zaczęliśmy zapisywać do tablicy s2, co wydawało nam się trochę dziwne, że s1 i s2 znajdują się bezpośrednio obok w pamięci
 
-Przedstawienie debuggowania:
+Przedstawienie debugowania:
 
 <img src="img/bug3.png" width="500">
