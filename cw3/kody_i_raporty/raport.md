@@ -137,11 +137,11 @@ Przedstawienie debuggowania:
 
 <img src="img/bug1.png" width="500">
 
-</br>
+<br />
 
 <img src="img/bug1b.png" width="500">
 
-</br>
+<br />
 
 <img src="img/bug1c.png" width="500">
 
@@ -153,7 +153,7 @@ Przedstawienie debuggowania:
 
 <img src="img/debug bug2.png" width="500">
 
-</br>
+<br />
 
 <img src="img/debug bug 2b.png" width="500">
 
