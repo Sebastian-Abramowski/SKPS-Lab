@@ -46,6 +46,7 @@ make package/feeds/skps/demo1mak/compile
 ```
 
 Skompilowane pakiety:
+
 <img src="img/skompilowanie demo.png" width="500">
 
 Skorzystaliśmy z serwera http do przeniesiania plików
@@ -75,8 +76,8 @@ make package/feeds/skps/buggy/compile
 Instalacja pakietów po ich przeniesieniu
 
 ```
-opkg install worm.ipk
-opkg install buggy.ipk
+opkg install worms_1.0-1_aarch64_cortex-a72.ipk
+opkg install buggy_1.0-1_aarch64_cortex-a72.ipk
 ```
 
 ### Działanie programów:
@@ -129,6 +130,7 @@ np. directory /home/user/Puplit/openwrt.../demo1_owrt_pkg/buggy/src
 Na czym polegał bug1 - zapis do niezaalokowanej tablicy
 
 Przedstawienie debuggowania:
+
 <img src="img/bug1.png" width="500">
 
 <img src="img/bug1b.png" width="500">
@@ -140,6 +142,7 @@ Przedstawienie debuggowania:
 Na czym polegał bug2 - wyjście poza zakres tablicy
 
 Przedstawienie debuggowania:
+
 <img src="img/debug bug2.png" width="500">
 
 <img src="img/debug bug 2b.png" width="500">
@@ -149,4 +152,5 @@ Przedstawienie debuggowania:
 Na czym polegał bug3 - wyjście poza zakres tablicy, brak Segmentation faulta w tym przypadku (nie wyszliśmy na tyle daleko, że na pewno trafimy na obszar do którego nie mamy uprawnień jak w przypadku programu bug2, później zaczęliśmy zapisywać do tablicy s2, co wydawało nam się dziwne)
 
 Przedstawienie debuggowania:
+
 <img src="img/bug3.png" width="500">
