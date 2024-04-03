@@ -73,7 +73,7 @@ make package/feeds/skps/worms/compile
 make package/feeds/skps/buggy/compile
 ```
 
-Instalacja pakietów po ich przeniesieniu
+Instalacja pakietów po ich przeniesieniu (zrobliśmy tym samym sposobem co poprzednio)
 
 ```
 opkg install worms_1.0-1_aarch64_cortex-a72.ipk
@@ -99,6 +99,8 @@ ip_kompa: 10.42.0.1
 ip_RPi: 10.42.0.63
 ```
 
+Pobraliśmy na RPi potrzebne pakiety
+
 ```
 opkg update
 opkg install gdb
@@ -118,16 +120,18 @@ Przykładowe odpalenie serwera dla pliku wykonywalnego bug2
 Połącznie do serwera gdb z komputera hosta (analogicznie dla innych programów) - 10.42.0.63 to ip RPi
 
 ```
-./scripts/remote-gdb 10.42.0.63:9000 ./build_dir/target-aarch64_cortex-a72_musl/buggy-1.0/bug1
+./scripts/remote-gdb 10.42.0.63:9000 ./build_dir/target-aarch64_cortex-a72_musl/buggy-1.0/bug2
 ```
 
 Po połączeniu z komputera hosta ustawiliśmy katalog dla gdb, w którym ma szukać kodu:
 
+```
 np. directory /home/user/Puplit/openwrt.../demo1_owrt_pkg/buggy/src
+```
 
 ### Program bug1
 
-Na czym polegał bug1 - zapis do niezaalokowanej tablicy
+Na czym polegał bug1 - (Segmentation fault) zapis do niezaalokowanej tablicy
 
 Przedstawienie debuggowania:
 
@@ -139,7 +143,7 @@ Przedstawienie debuggowania:
 
 ### Program bug2
 
-Na czym polegał bug2 - wyjście poza zakres tablicy
+Na czym polegał bug2 - (Segmentation fault) wyjście poza zakres tablicy
 
 Przedstawienie debuggowania:
 
