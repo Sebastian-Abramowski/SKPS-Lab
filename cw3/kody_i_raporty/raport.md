@@ -6,26 +6,28 @@
 
 ---
 
-## Instalacja OpenWRT wersja 21.02.1
+## Instalacja OpenWRT
 
-Instalacje systemu OpenWRT przeprowadziliśmy w identyczny sposób jak na laboratorium nr. 2
+Sprawdziliśmy czy system OpenWRT z poprzednich labów się odpala
 
-<img src="" width="500">
+<img src="img/logowanie do maliny.png" width="500">
 
 ## Pierwszy pakiet
 
-Zaczęcie pracy z SDK
-
-```
-git clone https://git.openwrt.org/openwrt/openwrt.git
-```
+Pobraliśmy odpowiednią wersję SDK z `https://downloads.openwrt.org/releases/21.02.1/targets/bcm27xx/bcm2711/`
 
 ---
 
 Dodaliśmy do pliku feeds.conf.default ścieżkę do katalogu zawierającego katalogi z naszymi pakietami:
 
 ```
-src-link skps /pelna/sciezka/demo1_owrt_pkg
+nano feeds.conf.default
+```
+
+Dodaliśmy scieżkę do tego pliku:
+
+```
+src-link skps /home/user/Pulpit/openwrt.../demo1_owrt_pkg
 ```
 
 Zaktualizowaliśmy listy pakietów
@@ -43,13 +45,16 @@ make package/feeds/skps/demo1/compile
 make package/feeds/skps/demo1mak/compile
 ```
 
-Przenieślimy paczki w postaci plików .ipk na RPi i je zainstelowaliśmy
+Skompilowane pakiety:
+<img src="img/skompilowanie demo.png" width="500">
 
-<img src="" width="500">
+Skorzystaliśmy z serwera http do przeniesiania plików
 
-Wynik działania programu demo1
+<img src="img/serwer http z demo.png" width="500">
 
-<img src="" width="500">
+Przenieślimy paczke demo1 w postaci pliku .ipk na RPi i ją zainstelowaliśmy i odpaliliśmy
+
+<img src="img/opdalenie demo.png" width="500">
 
 ## Pakiety worms i buggy
 
@@ -74,11 +79,24 @@ opkg install worm.ipk
 opkg install buggy.ipk
 ```
 
-Działanie programów:
+### Działanie programów:
 
-<img src="" width="500">
+Odpalenie wormsów:
+
+<img src="img/odpalenie wormsów.png" width="500">
+
+Odpalenie plików z bugami:
+
+<img src="img/odpalenie bugów.png" width="500">
 
 ## Debugowanie zdalne
+
+Sprawdziliśmy nasze IP:
+
+```
+ip_kompa: 10.42.0.1
+ip_RPi: 10.42.0.63
+```
 
 ```
 opkg update
@@ -92,46 +110,43 @@ Odpaliliśmy serwer gdb na RPi
 gdbserver :9000 /usr/bin/bug1
 ```
 
-Połącznie do serwera gdb z komputera hosta (analogicznie dla innych programów)
+Przykładowe odpalenie serwera dla pliku wykonywalnego bug2
+
+<img src="img/założenie serwera gdb.png" width="500">
+
+Połącznie do serwera gdb z komputera hosta (analogicznie dla innych programów) - 10.42.0.63 to ip RPi
 
 ```
-./scripts/remote-gdb adres_ip_naszego_RPI:9000 ./build_dir/target-aarch64_cortex-a72_musl/buggy-1.0/bug1
+./scripts/remote-gdb 10.42.0.63:9000 ./build_dir/target-aarch64_cortex-a72_musl/buggy-1.0/bug1
 ```
 
-Ustawienie katalogu, w któym gdb ma szukać kodu:
-np. directory ../demo1_owrt_pkg/buggy/src
+Po połączeniu z komputera hosta ustawiliśmy katalog dla gdb, w którym ma szukać kodu:
 
-<img src="" width="500">
+np. directory /home/user/Puplit/openwrt.../demo1_owrt_pkg/buggy/src
 
 ### Program bug1
 
 Na czym polegał bug1 - zapis do niezaalokowanej tablicy
 
-Błąd:
-<img src="" width="500">
+Przedstawienie debuggowania:
+<img src="img/bug1.png" width="500">
+
+<img src="img/bug1b.png" width="500">
+
+<img src="img/bug1c.png" width="500">
 
 ### Program bug2
 
 Na czym polegał bug2 - wyjście poza zakres tablicy
 
-Błąd:
-<img src="" width="500">
+Przedstawienie debuggowania:
+<img src="img/debug bug2.png" width="500">
+
+<img src="img/debug bug 2b.png" width="500">
 
 ### Program bug3
 
-Na czym polegał bug3 - wyjście poza zakres tablicy, brak Segmentation faulta w tym przypadku (nie wyszliśmy na tyle daleko, że na pewno trafimy na obszar do którego nie mamy uprawnień jak w przypadku programu bug2)
+Na czym polegał bug3 - wyjście poza zakres tablicy, brak Segmentation faulta w tym przypadku (nie wyszliśmy na tyle daleko, że na pewno trafimy na obszar do którego nie mamy uprawnień jak w przypadku programu bug2, później zaczęliśmy zapisywać do tablicy s2, co wydawało nam się dziwne)
 
-Błąd:
-<img src="" width="500">
-
-## Inne doświadczenia z gdb
-
-Ustawienie breakpointu
-
-Praca krokowa
-
-Podgląd wartości zmiennej (print vs display)
-
-Backtrace
-
-Watchpointy w programie bug3, aby sprawdzić kiedy następuje zapisanie s1[10] pod niewłaściwym adresem
+Przedstawienie debuggowania:
+<img src="img/bug3.png" width="500">
