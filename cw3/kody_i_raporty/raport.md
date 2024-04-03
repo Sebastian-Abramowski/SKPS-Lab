@@ -6,7 +6,7 @@
 
 ---
 
-## Instalacja OpenWRT
+## OpenWRT
 
 Sprawdziliśmy czy system OpenWRT z poprzednich labów się odpala
 
@@ -59,11 +59,11 @@ Przenieślimy paczke demo1 w postaci pliku .ipk na RPi i ją zainstelowaliśmy i
 
 ## Pakiety worms i buggy
 
-Pobraliśmy katalogi z worms i buggy i umieściliśmy je w tym samym miejscu co poprzednio demo1 i demo1mak
+Pobraliśmy katalogi z programami worms i buggy i umieściliśmy je w tym samym miejscu co poprzednio demo1 i demo1mak
 
-W katalogach `buggy` i `worms` umieściilśmy pliki Makefile, analogiczne do tych wcześniejszych
+W katalogach `buggy` i `worms` umieściilśmy pliki Makefile, zrobliśmy je wzorując się na Makefilu z `demo1`
 
-Kompilacja paczek
+Aktualizacja i kompilacja paczek
 
 ```
 export LANG=C
@@ -95,7 +95,7 @@ Odpalenie plików z bugami:
 Sprawdziliśmy nasze IP:
 
 ```
-ip_kompa: 10.42.0.1
+ip_hosta: 10.42.0.1
 ip_RPi: 10.42.0.63
 ```
 
@@ -107,10 +107,10 @@ opkg install gdb
 opkg install gdbserver
 ```
 
-Odpaliliśmy serwer gdb na RPi
+Odpaliliśmy serwer gdb na RPi (przykład dla pliku bug2)
 
 ```
-gdbserver :9000 /usr/bin/bug1
+gdbserver :9000 /usr/bin/bug2
 ```
 
 Przykładowe odpalenie serwera dla pliku wykonywalnego bug2
@@ -159,7 +159,7 @@ Przedstawienie debuggowania:
 
 ### Program bug3
 
-Na czym polegał bug3 - wyjście poza zakres tablicy, brak Segmentation faulta w tym przypadku (nie wyszliśmy na tyle daleko, że na pewno trafimy na obszar do którego nie mamy uprawnień jak w przypadku programu bug2, później zaczęliśmy zapisywać do tablicy s2, co wydawało nam się dziwne)
+Na czym polegał bug3 - wyjście poza zakres tablicy, brak Segmentation faulta w tym przypadku (nie trafiliśmy na obszar, do którego nie mamy dostępu), od razu po przepełnieniu s1, zaczęliśmy zapisywać do tablicy s2, co wydawało nam się trochę dziwne, że s1 i s2 znajdują się bezpośrednio obok w pamięci
 
 Przedstawienie debuggowania:
 
