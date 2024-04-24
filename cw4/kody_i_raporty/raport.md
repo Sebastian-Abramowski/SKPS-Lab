@@ -68,14 +68,14 @@ Sprawdzenie obciążenia
 
 <img src="./screeny/Zrzut ekranu z 2024-04-24 13-38-50.png" width="500">
 
-### Wariant 3: 3 klientów, 2 rdzenie, bez obnciążenia
+### Wariant 3: 3 klientów, 2 rdzenie, bez obciążenia
 
 ```bash
 cw4a 3 200 10000 550000
 # przy 500 000 widać trochę opóźnień, 550 000 się zaczynają stałe opóxnianie
 ```
 
-### Wariant 4L 1 klient, 4 rdzenie, bez obciążenia
+### Wariant 4: 1 klient, 4 rdzenie, bez obciążenia
 
 ```bash
 cw4a 3 200 10000 810000
@@ -95,7 +95,7 @@ cw4a 3 200 10000 810000
 
 Wariant 3 działa bez obciążenia, więc jego wartość graniczna czasu przetwarzania powinna być większa od wariantu 2, co się zgadza.
 
-Wariant 1 działa na jednym obciążonym rdzeniu, a wariant 2 na dwóch obciążonych rdzeniach, więc wariant 2 powinien mieć wartość graniczną większą (przetwarzanie danych może trwać dłużej bez drastycznego wzrostu opóźnień) niż wariant 1, co też się zgadza.
+Wariant 1 działa na jednym obciążonym rdzeniu, a wariant 2 na dwóch obciążonych rdzeniach, więc wariant 2 powinien mieć większą wartość graniczną (przetwarzanie danych może trwać dłużej bez drastycznego wzrostu opóźnień) niż wariant 1, co też się zgadza.
 
 Wariant 4 ma najdłuższy graniczny czas przetwarzania, pewnie wynika to z faktu, że jeden klient nie ma konkurencji dostępu do zasobów dzielonych (bufora) w porównaniu do przypadku gdy mamy 3 klientów.
 
@@ -137,7 +137,7 @@ cw4a 3 200 10000 405000
 
 ## Aktywne oczekiwanie
 
-Ustawiliśmy aby można było ustawić tryb programu `cw4b` przez ustawienie odpowieniej zmiennej środowiskowej w termialu przed uruchomieniem programu (nie chcieliśmy zmieniać argumentów, które program przyjmuje), zmienne środowiskowe:
+Ustawiliśmy aby można było ustawić tryb programu `cw4b` przez ustawienie odpowiedniej zmiennej środowiskowej w termialu przed uruchomieniem programu (nie chcieliśmy zmieniać argumentów, które program przyjmuje), zmienne środowiskowe:
 
 - `ACTIVE_WAIT` - wszyscy kliencie będą oczekiwać aktywnie
 - `ACTIVE_WAIT_CLIENT_NR_0` - klient nr. 0 będzie aktywnie oczekiwał
@@ -160,9 +160,9 @@ Badanie przeprowadziliśmy dla wariantu 1 z zadania nr. 4 (tego powyżej) - 3 kl
 
 ### Obserwacje po zakończeniu zadania
 
-Możemy zaobserwować, że czasy opóźnień dostarczania danych bez aktywnego oczekiwania były znacząco mniejsze. Na dodatek, wtedy mogliśmy zaobserować w regularność i przewidywalność w czasach opóźnień.
+Możemy zaobserwować, że czasy opóźnień dostarczania danych bez aktywnego oczekiwania były znacząco mniejsze. Na dodatek, wtedy mogliśmy zaobserwować większą regularność i przewidywalność w czasach opóźnień.
 
-Dla aktywnego oczekiwania klienta nr. 0, możemy zaobserwować, że opóźnienia tego klienta są znacznie większe (na oko w 1/3 przypadków) niż bez. Na dodatek, klienci nr. 1 i nr. 2 mają zwiększone czasy opóźnień (pewnie wynika to z faktu, że proces klienta nr. 0 bez sensu wykorzystuje czas procesora).
+Dla aktywnego oczekiwania klienta nr. 0, możemy zaobserwować, że opóźnienia tego klienta są znacznie większe w 1/3 przypadków (na oko) niż bez. Na dodatek, klienci nr. 1 i nr. 2 mają zwiększone czasy opóźnień (pewnie wynika to z faktu, że proces klienta nr. 0 bez sensu wykorzystuje czas procesora).
 
 W aktywnym oczekiwaniu wszystkich klientów także możemy zobaczyć powyższy obserwacje. Mniejsza regularność, większe czasy opóźnień dla wszystkich klientów. Co ciekawe, w mniej więcej dwóch piątych przypadków, klient nr. 0 ma mniejsze opóźnienie przetwarzania niż w przypadku bez aktywnego oczekiwania (chodzi o niebieski pasek na wykresie z tytułem `zadanie 52` dla wartości czasu mniej więcej 90 us)
 
@@ -172,16 +172,16 @@ Badania w tym zadaniu przeprowadziliśmy dla wariantu 3 z zadania nr. 3 (`cw4a 3
 
 Problem w programie `cw4a` polegał na tym, że w każdym wykonaniu pętli, było spanie w programie o okres równy czasu próbkowania. Czyli np. jeślibyśmy mieli okres próbkowania 1s, to czas pomiędzy wygenerowaniem kolejnych dwóch próbek wynosiłby 1s + czas przetwarzania próbki danych. Trzeba było zastosować korektę okresu próbkowania w pętli, abyśmy usypiali na tyle ile to jest konieczne.
 
-Czyli np. jeśli okres próbkowania wynosi 1s oraz przetwarzamy przez 0.5s daną próbkę danych (u nas jest to aktualny czas), to w następnym kroku pętli, będziemy spali 0.5s zamiast 1s. W ten sposób uzyskamy program, w którym okres między pobraniami zestawów próbek jest mniej więcej właściwy.
-
-### Wariant 3 z zadania nr. 3 przed poprawieniem programu
+Czyli np. jeśli okres próbkowania wynosi 1s oraz przetwarzaliśmy przez 0.5s daną próbkę danych (u nas jest to aktualny czas), to w następnym kroku pętli, będziemy spali 0.5s zamiast 1s. W ten sposób uzyskamy program, w którym okres między pobraniami zestawów próbek jest mniej więcej właściwy.
 
 Wykresy przedstawiają czas pomiędzy pobraniami zestawów próbek w mikrosekundach oraz ile razy te czasy wystąpiły.
+
+### Wariant 3 z zadania nr. 3 przed poprawieniem programu
 
 <img src="./rezultaty/lab4/wariancja 33/zad6_hist.png" width="500">
 
 ### Wariant 3 z zadania nr. 3 przed poprawieniem programu
 
-W tym przypadku widzimy, że czas jest dużo bliższy okresowi próbowania, który wnosił `10000` us w naszym przypadku.
+W tym przypadku widzimy, że czas między pobraniami próbek jest dużo bliższy okresowi próbowania, który wynosił `10000` us w naszym przypadku.
 
 <img src="./rezultaty/lab4/zadanie 6/zad6_hist.png" width="500">
