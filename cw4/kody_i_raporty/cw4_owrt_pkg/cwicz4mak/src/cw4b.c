@@ -21,15 +21,16 @@ volatile int dummy=0; //Used to simulate processing delay
 int main(int argc, char *argv[])
 {
     int smpnum;
-    unsigned long smptime,deliverytime;    
+    unsigned long smptime,deliverytime;
     int fd;
     double tdel;
     int ncli;
     int nsmp;
     int ndel;
     int fout;
+    short int if_active_wait;
     ncli = atoi(argv[1]);
-    nsmp = atoi(argv[2]);    
+    nsmp = atoi(argv[2]);
     ndel = atoi(argv[3]);
     printf("Client: %d, nsmp=%d, del=%d\n",ncli,nsmp,ndel);
     //Create the report file
@@ -46,6 +47,15 @@ int main(int argc, char *argv[])
     struct ringbuf * rbuf = (struct ringbuf *) mptr;
     //Check if the memory is initialized
     assert(rbuf->magick == 0x12345678);
+
+    if_active_wait = 0;
+    if (getenv("ACTIVE_WAIT")) {
+        if_active_wait = 1;
+    }
+    if (ncli == 0 && getenv("ACTIVE_WAIT_CLIENT_NR_0")) {
+        if_active_wait = 1;
+    }
+
     //Now we can start receiving the data
     smpnum=0;
     while(smpnum<nsmp) {
@@ -63,21 +73,23 @@ int main(int argc, char *argv[])
             if (rbuf->tail[ncli] == BUF_LEN) rbuf->tail[ncli] = 0;
             pthread_mutex_unlock(&rbuf->cvar_lock);
             smptime = 1000000*tv2.tv_sec + tv2.tv_usec;
-            deliverytime = 1000000*tv1.tv_sec + tv1.tv_usec;           
+            deliverytime = 1000000*tv1.tv_sec + tv1.tv_usec;
             int tdel = deliverytime - smptime;
             printf("Sample %d, client %d, delivery time: %d\n",smpnum,ncli,tdel);
             sprintf(line,"%d, %lu, %lu, %d\n",smpnum,smptime,deliverytime,tdel);
             //The next instruction is an example of incorrect implementation!
             //Now we only detect possible error, but we should also check the number of written bytes
             //and repeat writing if only part of the line was written?
-            assert(write(fout,line,strlen(line))>0); 
+            assert(write(fout,line,strlen(line))>0);
             sync();
             smpnum++;
             //Here we simulate delay for data processing
             for(j=0;j<ndel;j++)
-               dummy++;            
+               dummy++;
         } else {
-            pthread_cond_wait(&rbuf->cvar,&rbuf->cvar_lock);
+            if (!if_active_wait) {
+                pthread_cond_wait(&rbuf->cvar,&rbuf->cvar_lock);
+            }
             pthread_mutex_unlock(&rbuf->cvar_lock);
         }
     }

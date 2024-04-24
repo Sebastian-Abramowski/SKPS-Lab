@@ -1,12 +1,12 @@
 import os
 import matplotlib.pyplot as plt
 
-
-def hist(directory):
-    files = [file for file in os.listdir(directory) if (file[:3] == "cli")]
+directories = ['server.txt']
+def hist():
+    files = directories
     all_data = []
     for file in files:
-        with open(directory + "\\" + file, "r") as f:
+        with open(file, "r") as f:
             data = f.readlines()
         data = [int(line.split(", ")[-1].strip()) for line in data]
 
@@ -17,16 +17,16 @@ def hist(directory):
 
     plt.xlabel("Time[usec]")
     plt.ylabel("Signals")
-    plt.title("title")
+    plt.title("5.2")
     plt.legend()
 
-    plt.savefig(directory + "\\hist2.png")
+    plt.savefig("server.png")
 
 
 def every_sub():
-    directories = [d for d in os.listdir('/home/user/Pulpit/skps24l_sabramowski_bstoma/cw4/kody_i_raporty') if os.path.isdir(d)]
+    directories = [d for d in os.listdir() if os.path.isdir(d)]
     for dir in directories:
         hist(dir)
 
 
-every_sub()
+hist()
