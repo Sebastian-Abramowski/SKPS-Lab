@@ -144,7 +144,7 @@ Ustawiliśmy aby można było ustawić tryb programu `cw4b` przez ustawienie odp
 
 Jest to zrealizowane tak, że jeśli klient ma aktywnie oczekiwać, to nie zawiesza się na zmiennej warunkowej (`pthread_cond_wait(&rbuf->cvar,&rbuf->cvar_lock)`), ale kontynuuje swoje działanie, ponownie sprawdzając w pętli czy pojawiły się nowe dany
 
-### Jak aktywne oczekiwanie wpłyneło na opóźnienie dostarczenia danych?
+### Jak aktywne oczekiwanie wpłynęło na opóźnienie dostarczenia danych?
 
 Badanie przeprowadziliśmy dla wariantu 1 z zadania nr. 4 (tego powyżej) - 3 klientów, 1 rdzeń, pełne obciążenie. Przypomnienie histogramu bez aktywnego oczekiwania:
 
@@ -180,7 +180,7 @@ Wykresy przedstawiają czas pomiędzy pobraniami zestawów próbek w mikrosekund
 
 <img src="./rezultaty/lab4/wariancja 33/zad6_hist.png" width="500">
 
-### Wariant 3 z zadania nr. 3 przed poprawieniem programu
+### Wariant 3 z zadania nr. 3 po poprawieniu programu
 
 W tym przypadku widzimy, że czas między pobraniami próbek jest dużo bliższy okresowi próbowania, który wynosił `10000` us w naszym przypadku.
 
