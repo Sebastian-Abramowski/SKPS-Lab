@@ -5,7 +5,8 @@
 #include <unistd.h>
 #include <string.h>
 #include <math.h> // do abs
-#include "server.h"
+#include "server.c"
+#include <time.h>
 
 #define FIFO_PATH "/tmp/signal_to_led_fifo"  // Ścieżka do named pipe
 
@@ -37,6 +38,7 @@ void send_fifo(float value) {
 int main() {
     initServer(8080);
     float reading[4] = {0.1, 0.4, 0.3, 0.2};
+    char buffer[1024];
 
     while (1) {
         if (fabs(3.3 - reading[0] <= 0.05)) {
@@ -48,10 +50,13 @@ int main() {
         printf("%f\n", reading[0]);
         fflush(stdout);
         
-        send_fifo(reading[0]);
-        sendData(reading, 16);
-        
-        usleep(500000);
+        //send_fifo(reading[0]);
+        //snprintf(buffer, 1024, "Wiadomość wysłana o %f\n", reading[0]);
+        //sendData(buffer, 1024);
+        snprintf(buffer, 1024, "Wiadomość wysłana o %f\n", reading[0]);
+        sendData(buffer, strlen(buffer));
+
+        sleep(1);
     }
 
     return 0;
