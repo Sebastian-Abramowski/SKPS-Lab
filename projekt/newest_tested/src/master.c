@@ -32,7 +32,7 @@ void send_fifo(float value) {
 int main() {
     char receiveBuffer[BUFFER_SIZE];
     initServer(8080, receiveBuffer);
-    printf("Odebrano wiadomość od klienta: %s\n", receiveBuffer);
+    printf("Reveived message from the client: %s\n", receiveBuffer);
     // --- tutaj będą zapisywane arguemnty odczytane z joysticka w przyszłosci [TEMPORARY CHANGE]
     float reading[4] = {0.1, 0.4, 0.3, 0.2};
     // ---
