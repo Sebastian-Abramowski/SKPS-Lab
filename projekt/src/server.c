@@ -1,65 +1,80 @@
-#include "server.h"
-
 #include <arpa/inet.h>
+#include <errno.h>
+#include <netdb.h>
+#include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <sys/socket.h>
+#include <sys/types.h>
 #include <unistd.h>
 
-#define PORT 8080
 #define BUFFER_SIZE 1024
 
-int                sockfd;
-struct sockaddr_in client_addr;
+int socketFD;
+struct sockaddr_in clientAddress;
 
-void initServer() {
-    struct sockaddr_in server_addr;
-
-    socklen_t addr_len = sizeof(client_addr);
-
-    if ((sockfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
-        perror("socket creation failed");
-        exit(EXIT_FAILURE);
-    }
-
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(PORT);
-    server_addr.sin_addr.s_addr = INADDR_ANY;
-
-    if (bind(sockfd, (const struct sockaddr *)&server_addr,
-             sizeof(server_addr)) < 0) {
-        perror("bind failed");
-        close(sockfd);
-        exit(EXIT_FAILURE);
-    }
-
-    socklen_t clientAddressSize = sizeof(client_addr);
-    int       connectionSocketFD;
-    char      buffer[BUFFER_SIZE];
-
-    if (recvfrom(sockfd, buffer, BUFFER_SIZE, 0,
-                 (struct sockaddr *)&client_addr, &addr_len) < 0) {
-        perror("recvfrom failed");
-        close(sockfd);
-        exit(EXIT_FAILURE);
-    }
+void exitAndCleanup(int exitCode) {
+    close(socketFD);
+    exit(exitCode);
 }
 
-void sendData(const void *buffer) {
-    if (sendto(sockfd, buffer, strlen(buffer), 0,
-               (const struct sockaddr *)&client_addr,
-               sizeof(client_addr)) != strlen(buffer)) {
-        perror("sendto failed");
+int createDatagramSocket(uint16_t port) {
+    int sock;
+    struct sockaddr_in serverAddress;
+
+    // Create UDP socket
+    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+        perror("(server) socket creation failed");
+        exit(1);
     }
+
+    // Configure server address structure
+    memset(&serverAddress, 0, sizeof(serverAddress));
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_port = htons(port);
+    serverAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    // Bind the socket to the port
+    if (bind(sock, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0) {
+        perror("(server) bind failed");
+        close(sock);
+        exit(1);
+    }
+
+    return sock;
 }
 
-int main() {
-    initServer();
+void waitForClient() {
+    socklen_t clientAddressLen = sizeof(clientAddress);
     char buffer[BUFFER_SIZE];
-    while (1) {
-        sleep(1);
-        snprintf(buffer, BUFFER_SIZE, "Wiadomość wysłana o %ld\n", time(NULL));
-        sendData(buffer);
+
+    // Receive message from client
+    if (recvfrom(socketFD, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&clientAddress, &clientAddressLen) < 0) {
+        perror("(server) recvfrom failed");
+        close(socketFD);
+        exit(1);
+    }
+
+    // Send acknowledgment to client
+    const char *ackMessage = "Ok";
+    if (sendto(socketFD, ackMessage, strlen(ackMessage), 0, (struct sockaddr *)&clientAddress, clientAddressLen) < 0) {
+        perror("(server) sendto failed");
+        close(socketFD);
+        exit(1);
+    }
+}
+
+void initServer(int port) {
+    socketFD = createDatagramSocket(port);
+    waitForClient();
+}
+
+void sendData(const void *buffer, size_t size) {
+    printf("Sending %zu bytes to %s\n", size, inet_ntoa(clientAddress.sin_addr));
+    if (sendto(socketFD, buffer, size, 0, (struct sockaddr *)&clientAddress, sizeof(clientAddress)) < 0) {
+        perror("(server) sendto response failed");
+        close(socketFD);
+        exit(1);
     }
 }
