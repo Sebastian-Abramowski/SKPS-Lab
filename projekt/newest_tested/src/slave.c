@@ -103,8 +103,8 @@ int main() {
     float readings[4];
     while (1) {
         receive_fifo(readings);
-        set_led_brightness(readings[0], DUTY_CYCLE0_PATH);  // Using the first value to set LED brightness on PWM0
-        set_led_brightness(readings[1], DUTY_CYCLE1_PATH);  // Using the second value to set LED brightness on PWM1
+        set_led_brightness(readings[0], DUTY_CYCLE0_PATH);  // set LED brightness on PWM0
+        set_led_brightness(readings[2], DUTY_CYCLE1_PATH);  // set LED brightness on PWM1
         printf("Received values: %f, %f, %f, %f\n", readings[0], readings[1], readings[2], readings[3]);
         usleep(250000); // Delay for stability
     }

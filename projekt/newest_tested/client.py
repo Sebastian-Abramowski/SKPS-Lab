@@ -15,9 +15,9 @@ SAMPLES = 10
 def configurate_plots():
     plt.ion()
     figure, axis = plt.subplots(2, 2)
-    plots = [axis[0, 0], axis[1, 0], axis[0, 1], axis[1, 1]]
+    plots = [axis[0, 0], axis[0, 1], axis[1, 0], axis[1, 1]]
     titles = ["Joystick1 - X", "Joystick1 - Y",
-              "Joystick3 - X", "Joystick4 - Y"]
+              "Joystick2 - X", "Joystick2 - Y"]
     for plot, title in zip(plots, titles):
         plot.set_ylim([MIN_V, MAX_V + PADDING])
         plot.set_ylabel("Napiecie")

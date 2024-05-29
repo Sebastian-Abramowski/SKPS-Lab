@@ -37,12 +37,19 @@ int main() {
     float readings[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
     while (1) {
-        // --- zmiana powinna następować na podstawie odczytu z czujnika [TEMPORARY CHANGE]
-        // if (fabs(3.3 - readings[0] <= 0.05)) {
+        // --- [FOR TESTING]
+        // if (fabs(3.3f - readings[0] <= 0.05f)) {
         //     readings[0] = 0;
         // }
         // else {
-        //     readings[0] += 0.1;
+        //     readings[0] += 0.1f;
+        // }
+
+        // if (readings[2] >= 0) {
+        //     readings[2] -= 0.1f;
+        // }
+        // else {
+        //     readings[2] = 3.3f;
         // }
         // ---
         getReading(readings);
