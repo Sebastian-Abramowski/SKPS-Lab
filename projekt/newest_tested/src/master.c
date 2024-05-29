@@ -30,28 +30,31 @@ void send_fifo(float value) {
 }
 
 int main() {
-    char receiveBuffer[BUFFER_SIZE];
-    initServer(8080, receiveBuffer);
-    printf("Reveived message from the client: %s\n", receiveBuffer);
+    // char receiveBuffer[BUFFER_SIZE];
+    initializeMCP3424();
+    // initServer(8080, receiveBuffer);
+    // printf("Reveived message from the client: %s\n", receiveBuffer);
     // --- tutaj będą zapisywane arguemnty odczytane z joysticka w przyszłosci [TEMPORARY CHANGE]
-    float reading[4] = {0.1, 0.4, 0.3, 0.2};
+    // float reading[4] = {0.1, 0.4, 0.3, 0.2};
+    float reading[4];
     // ---
 
     while (1) {
         // --- zmiana powinna następować na podstawie odczytu z czujnika [TEMPORARY CHANGE]
-        if (fabs(3.3 - reading[0] <= 0.05)) {
-            reading[0] = 0;
-        }
-        else {
-            reading[0] += 0.1;
-        }
+        // if (fabs(3.3 - reading[0] <= 0.05)) {
+        //     reading[0] = 0;
+        // }
+        // else {
+        //     reading[0] += 0.1;
+        // }
         // ---
+        getReading(reading);
 
         printf("%f\n", reading[0]);
         fflush(stdout);
 
-        send_fifo(reading[0]);
-        sendData(reading, 16);
+        // send_fifo(reading[0]);
+        // sendData(reading, 16);
 
         usleep(500000);
     }
