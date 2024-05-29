@@ -48,14 +48,12 @@ int createDatagramSocket(uint16_t port) {
 void waitForClient(char *buffer) {
     socklen_t clientAddressLen = sizeof(clientAddress);
 
-    // Receive message from client
     if (recvfrom(socketFD, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&clientAddress, &clientAddressLen) < 0) {
         perror("Error: recvfrom failed");
         close(socketFD);
         exit(1);
     }
 
-    // Send acknowledgment to client
     const char *ackMessage = "Ok";
     if (sendto(socketFD, ackMessage, strlen(ackMessage), 0, (struct sockaddr *)&clientAddress, clientAddressLen) < 0) {
         perror("Error: sendto failed");

@@ -1,9 +1,6 @@
 import socket
 import struct
-import matplotlib.figure
-import matplotlib.lines
 import matplotlib.pyplot as plt
-import matplotlib
 import numpy as np
 import time
 
