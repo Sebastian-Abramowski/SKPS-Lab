@@ -7,10 +7,10 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(src)
 
 add_executable(master
-    src/master.c src/server.c src/mcp3422.c
+    src/master.c src/server.c src/mcp3424.c
 )
 
 
 add_executable(slave
-	src/slave.cpp
+	src/slave.c
 )

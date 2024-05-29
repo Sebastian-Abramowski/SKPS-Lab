@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -73,7 +74,7 @@ void set_led_brightness(float x, const char *duty_cycle_path) {
     set_pwm_duty_cycle(duty_cycle_ns, duty_cycle_path);
 }
 
-void receive_fifo(float values[4]) {
+void receive_fifo(float *values) {
     int file;
     if ((file = open(FIFO_PATH, O_RDONLY)) < 0) {
         perror("Failed to open the FIFO");
@@ -92,6 +93,7 @@ void receive_fifo(float values[4]) {
     // Convert bytes to float array
     memcpy(values, buffer, 4 * sizeof(float));
 }
+
 
 int main() {
     pwm_init();

@@ -11,7 +11,7 @@
 
 #define FIFO_PATH "/tmp/signal_to_led_fifo"
 
-void send_fifo(float value) {
+void send_fifo(float *values) {
     int file;
 
     if ((file = open(FIFO_PATH, O_WRONLY)) < 0) {
@@ -19,10 +19,10 @@ void send_fifo(float value) {
         exit(1);
     }
 
-    uint8_t buffer[sizeof(float)];
-    memcpy(buffer, &value, sizeof(float));
+    uint8_t buffer[4 * sizeof(float)];
+    memcpy(buffer, values, 4 * sizeof(float));
 
-    if (write(file, buffer, sizeof(float)) != sizeof(float)) {
+    if (write(file, buffer, 4 * sizeof(float)) != 4 * sizeof(float)) {
         perror("Failed to write to the FIFO");
     }
 
@@ -50,7 +50,7 @@ int main() {
         printf("%f, %f, %f, %f\n", readings[0], readings[1], readings[2], readings[3]);
         fflush(stdout);
 
-        send_fifo(readings[0]);
+        send_fifo(readings);
         sendData(readings, 16);
 
         usleep(250000);
