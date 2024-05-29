@@ -46,10 +46,10 @@ void initServer() {
     }
 }
 
-void sendData(const void *buffer) {
-    if (sendto(sockfd, buffer, strlen(buffer), 0,
+void sendData(const void *buffer, int size) {
+    if (sendto(sockfd, buffer, size, 0,
                (const struct sockaddr *)&client_addr,
-               sizeof(client_addr)) != strlen(buffer)) {
+               sizeof(client_addr)) != size) {
         perror("sendto failed");
     }
 }
@@ -59,7 +59,7 @@ int main() {
     char buffer[BUFFER_SIZE];
     while (1) {
         sleep(1);
-        snprintf(buffer, BUFFER_SIZE, "Wiadomość wysłana o %ld\n", time(NULL));
-        sendData(buffer);
+        snprintf(buffer, 1024, "Wiadomość wysłana o %ld\n", time(NULL));
+        sendData(buffer, strlen(buffer));
     }
 }

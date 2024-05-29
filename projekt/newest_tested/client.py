@@ -15,9 +15,7 @@ PADDING = 0.5
 SAMPLES = 10
 
 
-def configurate_plots() -> tuple[matplotlib.figure.Figure,
-                                 list[matplotlib.lines.Line2D],
-                                 list[float]]:
+def configurate_plots():
     plt.ion()
     figure, axis = plt.subplots(2, 2)
     plots = [axis[0, 0], axis[1, 0], axis[0, 1], axis[1, 1]]
@@ -25,7 +23,7 @@ def configurate_plots() -> tuple[matplotlib.figure.Figure,
               "Joystick3 - X", "Joystick4 - Y"]
     for plot, title in zip(plots, titles):
         plot.set_ylim([MIN_V, MAX_V + PADDING])
-        plot.set_ylabel("Napięcie")
+        plot.set_ylabel("Napiecie")
         plot.set_title(title)
 
     figure.tight_layout(pad=2.0)
@@ -41,10 +39,10 @@ def configurate_plots() -> tuple[matplotlib.figure.Figure,
     return figure, lines_objects, all_y
 
 
-def update_plots(reading: tuple[float, float, float, float],
-                 figure: matplotlib.figure.Figure,
-                 lines_objects: list[matplotlib.lines.Line2D],
-                 all_y: list[float]):
+def update_plots(reading,
+                 figure,
+                 lines_objects,
+                 all_y):
     for values, new_value in zip(all_y, reading):
         del values[0]
         values.append(new_value)
@@ -57,15 +55,14 @@ def update_plots(reading: tuple[float, float, float, float],
 def create_socket_and_establish_connection() -> socket.socket:
     connection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     connection.bind(('', 0))
-    connection.sendto("test".encode('ascii'), ('127.0.0.1', SERVER_PORT))
+    connection.sendto("test".encode('ascii'), ('10.42.0.63', SERVER_PORT))
     data, size = connection.recvfrom(MAX_DATAGRAM_SIZE)
     print(f"Connected with server: {data.decode('ascii')}")
     connection.setblocking(False)
     return connection
 
 
-def receive_next_reading(connection: socket.socket) -> tuple[float, float,
-                                                             float, float]:
+def receive_next_reading(connection: socket.socket):
     while True:
         try:
             last_packet = connection.recv(MAX_DATAGRAM_SIZE)

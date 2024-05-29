@@ -1,14 +1,12 @@
 import socket
 
-SERVER_IP = '127.0.0.1'  # Zastąp 'Adres_IP_Raspberry_Pi' właściwym adresem IP Raspberry Pi
-PORT = 8080                          # Port serwera
+SERVER_IP = '10.42.0.63'
+PORT = 8080
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-# Wysyłanie pierwszego pakietu do serwera, aby ustalić adres klienta
 
 
-# Nasłuchiwanie odpowiedzi od serwera
 sock.bind(('', 0))
 sock.sendto(b'Hello, server', (SERVER_IP, PORT))
 
