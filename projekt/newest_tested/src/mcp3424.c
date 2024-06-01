@@ -8,13 +8,11 @@
 
 #define RESOLUTION 12
 #define RAW_MIN 0
-#define RAW_MAX (1 << (RESOLUTION - 1))
+#define RAW_MAX 4095
 #define V_MIN 0.00
 #define V_MAX 3.33
 
 MCP3424Properties properties;
-int fd;
-int channels[4];
 uint32_t raw[4];
 
 void setChannel(int channel) {
@@ -39,10 +37,6 @@ void setResolution12() {
 
 void initializeMCP3424() {
     properties.fileDescriptor = open("/dev/i2c-1", O_RDWR);
-    if (fd < 0) {
-        perror("(open) mcp3424");
-        exit(1);
-    }
     properties.address = 0x68;
     properties.config = 0x00;
     setChannel(0);
