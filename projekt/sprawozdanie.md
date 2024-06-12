@@ -31,3 +31,25 @@ Pokazanie działania diody w zależności od ustawienia joysticka:
 <img src="wykres" width="500">
 
 <img src="wykres" width="500">
+
+Podłączaliśmy go GPIO 18, 19 do pinów dla PWM
+
+## Co udało nam się zrobić na pierwszych labach
+
+- przetestowaliśmy wysyłanie testowych informacji (4 flotów) do innego programu obsługujacego LED oraz wysyłanie informacji przez sieć do klienta na hoście, który robił na podstawie tego wykresy
+
+- przetestowaliśmy odczytywanie wartości (4 floatów) z przetowrnika ADC - MCP3424
+
+## Co udało nam sie zrobić na drugich labach
+
+## Odpalanie
+
+mkfifo tmp/signal_to_led_fifo
+slave &
+master
+
+błędem było danie takiego samego czasu spania w masterze i w slavie
+
+problem z RPi
+
+## Co znajduje się w konkretnych plikach
