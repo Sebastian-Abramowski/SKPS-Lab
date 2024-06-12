@@ -72,3 +72,27 @@ Robienie wykresów na podstawie zmian "w czasie rzeczywistym"
 - slave.\* - program odbierający dane od master.c i sterujący dwoma LEDami na podstawie
 - Makefile - do tworzenia pakietu ipk przez SDK, który był przerzucany na RPi
 - CMakeLists.txt - użyta do przetestowania czy wszystko się kompiluje przed laboratorium
+
+
+## Co się znajduje w sterowniku mcp3424?
+
+### Opis działania sterownika MCP3424
+- Sterownik MCP3424 napisaliśmy samodzielnie, ponieważ jego budowa jest bardzo prosta. Aby odczytać wartości z konwertera, należy postępować według poniższych kroków:
+
+- Otworzyć plik /dev/i2c-1 i zapisać deskryptor pliku.
+- W funkcji ioctl podać jako argumenty deskryptor pliku oraz adres konwertera, który w naszym przypadku wynosi 0x68. Piny Adr0 i Adr1 na konwerterze odpowiadają za ustawienie adresu i2c konwertera.
+- Jeśli oba zostaną ustawione na 0, domyślny adres wynosi 0b01101000, czyli 0x68 (zgodnie z dokumentacją).
+### Należy pamiętać o odpowiednim ustawieniu konfiguracji:
+- configuration: bit 0 RDY; 1-2 channels; 3 mode; 4-5 resolution; 6-7 PGA
+- Najważniejsze są bity 1-2 odpowiedzialne za wybór kanału (dostępne są 4 kanały).
+
+### Odczyt danych
+- W zależności od wartości rozdzielczości (resolution), musimy odpowiednio odczytać dane. Dla rozdzielczości wynoszącej 12 bitów według dokumentacji:
+
+- 12-bitów: MMMMD11 ~ D8 (1. bajt danych) - D7 ~ D0 (2. bajt danych)
+Odczytane dane musimy zamienić na liczbę całkowitą (int). Operacja ta wygląda następująco:
+
+
+- ((reading[0] & 0x0f) << 8) | reading[1]
+### Mapowanie odczytu na wartość napięcia
+- Ostatnią rzeczą, o której należy pamiętać, jest zmapowanie odczytu na wartość napięcia w zakresie od 0 do 3.3V. Wartość odczytu zależy od ustawionej rozdzielczości. W domyślnym przypadku, czyli dla 12 bitów, wartości te mieszczą się w zakresie od -2048 do 2047.
