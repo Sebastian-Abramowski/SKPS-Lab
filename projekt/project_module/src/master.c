@@ -11,10 +11,12 @@
 
 #define FIFO_PATH "/tmp/signal_to_led_fifo"
 
-void send_fifo(float *values) {
+void send_fifo(float *values)
+{
     int file;
 
-    if ((file = open(FIFO_PATH, O_WRONLY)) < 0) {
+    if ((file = open(FIFO_PATH, O_WRONLY)) < 0)
+    {
         perror("Failed to open the FIFO");
         exit(1);
     }
@@ -22,21 +24,24 @@ void send_fifo(float *values) {
     uint8_t buffer[4 * sizeof(float)];
     memcpy(buffer, values, 4 * sizeof(float));
 
-    if (write(file, buffer, 4 * sizeof(float)) != 4 * sizeof(float)) {
+    if (write(file, buffer, 4 * sizeof(float)) != 4 * sizeof(float))
+    {
         perror("Failed to write to the FIFO");
     }
 
     close(file);
 }
 
-int main() {
+int main()
+{
     char receiveBuffer[BUFFER_SIZE];
-    initializeMCP3424();
+    initMCP3424();
     initServer(8080, receiveBuffer);
     printf("Reveived message from the client: %s\n", receiveBuffer);
     float readings[4] = {0.0f, 0.0f, 0.0f, 0.0f};
 
-    while (1) {
+    while (1)
+    {
         // --- [FOR TESTING]
         // if (fabs(3.3f - readings[0] <= 0.05f)) {
         //     readings[0] = 0;
@@ -52,7 +57,7 @@ int main() {
         //     readings[2] = 3.3f;
         // }
         // ---
-        getReading(readings);
+        getVoltageFromAllChannels(readings);
 
         printf("%f, %f, %f, %f\n", readings[0], readings[1], readings[2], readings[3]);
         fflush(stdout);
