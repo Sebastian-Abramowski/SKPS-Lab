@@ -34,7 +34,12 @@ Schemat podłączenia podczas testów:
 
 ## Co udało nam sie zrobić na drugich labach
 
-Przetestowaliśmy działanie wszystkiego razem
+- Przetestowaliśmy działanie wszystkiego razem
+- Przygotaliśmy package ipk
+- Dodaliśmy 2 lampkę led
+- Porawiliśmy wygląd GUI
+- Przetestowaliśmy różne opóźnienia w dwóch różnych miejscach
+- Opóźnienie 0.1s z modułu app_opoznienie_0_1.ipk było za małe, i plik client.py nie nadążał z przetwarzaniem danych, a opóźnienie 0.5s było za duże i interaktywność z joystickiem była słaba. Opóźnienie 0.2s było idealne, interaktywność była dobra, a lampki zmieniały się płynnie i plik client.py nadążał z przetwarzaniem.
 
 Testowanie:
 
