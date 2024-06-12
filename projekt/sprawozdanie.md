@@ -10,43 +10,53 @@
 
 ## Schemat połączenia
 
-<img src="tutaj będzie schemat połączenia" width="500">
+<img src="schemat.png" width="500">
 
-## Fizyczne połączenie
+## Informace ogólne
 
-<img src="tutaj będzie jak podłaczylismy" width="500">
+Podłączaliśmy LEDy do GPIO 18, 19 do pinów dla PWM
+Zastosowaliśmy nakładki w bootloaderze:
 
-## Przykład działania
-
-Wykresy jak nie dotykamy joysticków:
-
-<img src="werwer" width="500">
-
-Wykresy jak przy zmianie joysticków:
-
-<img src="werwerwer" width="500">
-
-Pokazanie działania diody w zależności od ustawienia joysticka:
-
-<img src="wykres" width="500">
-
-<img src="wykres" width="500">
-
-Podłączaliśmy go GPIO 18, 19 do pinów dla PWM
+- dtoverlay=i2ci
+- dtoverlay=pwm2-chan
 
 ## Co udało nam się zrobić na pierwszych labach
 
 - przetestowaliśmy wysyłanie testowych informacji (4 flotów) do innego programu obsługujacego LED oraz wysyłanie informacji przez sieć do klienta na hoście, który robił na podstawie tego wykresy
 
-- przetestowaliśmy odczytywanie wartości (4 floatów) z przetowrnika ADC - MCP3424
+Schemat podłączenia podczas testów:
+
+- przetestowaliśmy przekazywanie wartości do programu sterującego pojedyczym ledem
+
+Schemat podłączenia podczas testów:
+
+<img src="img/lab_pierwszy/ledy.png" width="500">
 
 ## Co udało nam sie zrobić na drugich labach
 
-## Odpalanie
+Przetestowaliśmy działanie wszystkiego razem
 
-mkfifo tmp/signal_to_led_fifo
-slave &
-master
+Testowanie:
+
+<img src="img/lab_drugi/dzialaniae.png" width="500">
+
+Przykład działania
+
+<img src="img/lab_drugi/dziala.png" width="500">
+
+Robienie wykresów na podstawie zmian "w czasie rzeczywistym"
+
+<img src="img/lab_drugi/dziala_wykresy.png" width="500">
+
+## Uruchamienie projektu
+
+- ustawienie wczesniej wspomnianych nakładek w pliku dla bootloadera
+- budowa paczki przez specjalne SDK oraz Makefila
+- instalacja pakietu
+- stworzenie kolejki (czyli piku) przez który wysyłamy dane od programu 'master' do programu 'slave', który steruje ledem przez `mkfifo tmp/singal_to_led_fifo`
+- odpalenie w tle programu `slave &`
+- odpalenie programu `master`
+- na hoście odpalenie pliku client.py z odpowiednim adresem IP, który robi wykresy
 
 błędem było danie takiego samego czasu spania w masterze i w slavie
 
