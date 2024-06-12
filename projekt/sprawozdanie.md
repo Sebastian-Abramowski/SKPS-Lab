@@ -66,9 +66,9 @@ Robienie wykresów na podstawie zmian "w czasie rzeczywistym"
 
 ## Co znajduje się w konkretnych plikach
 
-- master.c
-- mcp3424.\*
-- server.\*
+- master.c - program główny, który odczytuje dane z konwertera ADC - MCP3424, wysyła odczytane do kolejki (pliku) /etc/singal_to_led_fifo oraz wysyla pakiety UDP z odcztanymi danymi przez gniazdo przez port 8080
+- mcp3424.\* - sterownik do ADC dostosowany  do naszych potrzeb
+- server.\* - zajmuje się wysylaniem pakietow oraz poczatkowym polaczeniem z klientem
 - slave.\* - program odbierający dane od master.c i sterujący dwoma LEDami na podstawie
 - Makefile - do tworzenia pakietu ipk przez SDK, który był przerzucany na RPi
 - CMakeLists.txt - użyta do przetestowania czy wszystko się kompiluje przed laboratorium
