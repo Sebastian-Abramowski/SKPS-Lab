@@ -58,8 +58,17 @@ Robienie wykresów na podstawie zmian "w czasie rzeczywistym"
 - odpalenie programu `master`
 - na hoście odpalenie pliku client.py z odpowiednim adresem IP, który robi wykresy
 
-błędem było danie takiego samego czasu spania w masterze i w slavie
+## Napotkane błedy
 
-problem z RPi
+- Mieliśmy lekki problem z dobraniem odpowiednich czasów spania w poszczególnych miejscach, aby wszystko działało w miarę płynnie (wynikało głównie to z tego, że nie mogliśmy na szybko zmieniać wartości programu)
+- Napotkaliśmy także problemu z konwerterem UART działającym przy RPi - wyświetlał on dziwne znaczki czasem, podobno przez współdzielenie "ścieżki" jakiegoś pinu z "ścieżką" UARTa
+- Na końcu mieliśmy problem z zmierzenime różnicy czasu (od wygenerowania danych przez urządzenie do odebrania przez sieć), wydaje nam się, że to przez to, że próbowaliśmy wysłac timestamp w C przez floata (ponieważ wyniki wysyłaliśmy wszystkie inne w floacie więc było wygodnie), przez to chyba mieliśmy za małą dokładność aby obliczyć prawidłową różnicę czasu
 
 ## Co znajduje się w konkretnych plikach
+
+- master.c
+- mcp3424.\*
+- server.\*
+- slave.\* - program odbierający dane od master.c i sterujący dwoma LEDami na podstawie
+- Makefile - do tworzenia pakietu ipk przez SDK, który był przerzucany na RPi
+- CMakeLists.txt - użyta do przetestowania czy wszystko się kompiluje przed laboratorium
